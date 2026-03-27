@@ -12,4 +12,46 @@ val students = listOf(
         R.string.student2, 20,
         R.string.student2_desc
     ),
+    Student(
+        R.drawable.student3,
+        R.string.student3, 20,
+        R.string.student3_desc
+    ),
+    Student(
+        R.drawable.student4,
+        R.string.student4, 20,
+        R.string.student4_desc
+    ),
+    Student(
+        R.drawable.student5,
+        R.string.student5, 20,
+        R.string.student5_desc
+    ),
+    Student(
+        R.drawable.student6,
+        R.string.student6, 20,
+        R.string.student6_desc
+    ),
+    Student(
+        R.drawable.student7,
+        R.string.student7, 20,
+        R.string.student7_desc
+    ),
+    Student(
+        R.drawable.student8,
+        R.string.student8, 20,
+        R.string.student8_desc
+    ),
+    Student(
+        R.drawable.student9,
+        R.string.student9, 20,
+        R.string.student9_desc
+    ),
+    Student(
+        R.drawable.student10,
+        R.string.student10, 20,
+        R.string.student10_desc
+    ),
+
+
 )
