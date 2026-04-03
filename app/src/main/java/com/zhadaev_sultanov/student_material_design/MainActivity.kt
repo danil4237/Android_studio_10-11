@@ -26,7 +26,9 @@ import com.zhadaev_sultanov.student_material_design.data.students
 import com.zhadaev_sultanov.student_material_design.ui.theme.Student_Material_DesignTheme
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.Surface
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 
 
@@ -46,7 +48,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+//1
 @Composable
 fun StudentIcon(
     @DrawableRes studentIcon: Int,
@@ -55,7 +57,8 @@ fun StudentIcon(
     Image(
         modifier = modifier
             .size(dimensionResource(R.dimen.image_size))
-            .padding(dimensionResource(R.dimen.padding_small)),
+            .padding(dimensionResource(R.dimen.padding_small))
+            .clip(MaterialTheme.shapes.small),
         painter = painterResource(studentIcon),
         contentDescription = null
     )
@@ -85,20 +88,26 @@ fun StudentItem(
     student: Student,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(dimensionResource(R.dimen.padding_small))
-    ) {
-        StudentIcon(student.imageResourceId)
-        StudentInformation(student.name, student.age)
+    Card(modifier = modifier) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(R.dimen.padding_small))
+        ) {
+            StudentIcon(student.imageResourceId)
+            StudentInformation(student.name, student.age)
+        }
     }
 }
 @Composable
 fun StudentApp(){
     LazyColumn{
         items(students){
-            StudentItem(student = it)
+            StudentItem(
+                student = it,
+                modifier = Modifier
+                    .padding(dimensionResource(R.dimen.padding_small))
+            )
         }
     }
 }
@@ -110,3 +119,11 @@ fun StudentPreview(){
         StudentApp()
     }
 }
+@Preview
+@Composable
+fun StudentDarkThemePreview(){
+    Student_Material_DesignTheme(darkTheme = true){
+        StudentApp()
+    }
+}
+
