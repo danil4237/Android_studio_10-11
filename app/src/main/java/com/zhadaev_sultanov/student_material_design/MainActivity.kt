@@ -58,6 +58,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.TopAppBar
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import java.util.stream.Stream
 
 
@@ -159,20 +165,22 @@ fun StudentItem(
 fun StudentApp(){
     Scaffold(
         topBar = {
-            StudentTopAppBar()
-        }
-    ) { it ->
-        LazyColumn(contentPadding = it) {
-
-        }
-    }
-    LazyColumn{
-        items(students){
-            StudentItem(
-                student = it,
-                modifier = Modifier
-                    .padding(dimensionResource(R.dimen.padding_small))
+            StudentTopAppBar(
+                modifier = Modifier.zIndex(1f)  // ← Фикс: передний план
             )
+        }
+    ) { padding ->
+        LazyColumn(
+            contentPadding = padding,
+            modifier = Modifier.padding(top = 56.dp)  // ← Отступ под высоту AppBar
+        ) {
+            items(students) {  // ← ПЕРЕНОСИМ элементы сюда
+                StudentItem(
+                    student = it,
+                    modifier = Modifier
+                        .padding(dimensionResource(R.dimen.padding_small))
+                )
+            }
         }
     }
 }
@@ -204,11 +212,31 @@ fun StudentTopAppBar(modifier: Modifier = Modifier) {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StudentTopAppBar() {
-    TODO("Not yet implemented")
+fun StudentTopAppBar(
+    title: String = "Student Material Design",
+    onNavigationClick: () -> Unit = {},
+    onSearchClick: () -> Unit = {},
+    onSettingsClick: () -> Unit = {}
+) {
+    TopAppBar(
+        title = { Text(title) },
+        navigationIcon = {
+            IconButton(onClick = onNavigationClick) {
+                Icon(Icons.Default.Menu, contentDescription = "Menu")
+            }
+        },
+        actions = {
+            IconButton(onClick = onSearchClick) {
+                Icon(Icons.Default.Search, contentDescription = "Search")
+            }
+            IconButton(onClick = onSettingsClick) {
+                Icon(Icons.Default.MoreVert, contentDescription = "Settings")
+            }
+        }
+    )
 }
-
 @Preview
 @Composable
 fun StudentPreview(){
